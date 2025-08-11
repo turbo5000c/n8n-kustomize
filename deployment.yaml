@@ -33,17 +33,23 @@ spec:
           env:
             - name: DB_TYPE
               value: postgresdb
-            - name: DB_POSTGRESDB_HOST
-              value: postgres-service.n8n.svc.cluster.local
             - name: DB_POSTGRESDB_PORT
               value: "5432"
+            - name: DB_POSTGRESDB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_HOST
             - name: DB_POSTGRESDB_DATABASE
-              value: n8n
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secret
+                  key: POSTGRES_DB  
             - name: DB_POSTGRESDB_USER
               valueFrom:
                 secretKeyRef:
                   name: postgres-secret
-                  key: POSTGRES_NON_ROOT_USER
+                  key: POSTGRES_NON_ROOT_USER 
             - name: DB_POSTGRESDB_PASSWORD
               valueFrom:
                 secretKeyRef:
