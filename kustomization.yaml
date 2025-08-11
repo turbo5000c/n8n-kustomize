@@ -4,10 +4,8 @@ kind: Kustomization
 resources:
   - namespace.yaml
   - configmap.yaml
-  - n8n-secret.yaml
-  - n8n-postgresql.yaml
   - deployment.yaml
   - pvc.yaml
   - service.yaml
-
-
+#  - n8n-secret.yaml
+#  - n8n-postgresql.yaml
