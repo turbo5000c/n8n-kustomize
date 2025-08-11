@@ -3,7 +3,6 @@ namespace: mealie
 kind: Kustomization
 resources:
 #  - namespace.yaml
-  - configmap.yaml
   - deployment.yaml
   - pvc.yaml
   - service.yaml
