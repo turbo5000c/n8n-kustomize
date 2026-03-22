@@ -1,0 +1,20 @@
+---
+# FluxCD GitRepository — tells Flux where to find this repository.
+# Apply this to your cluster with:
+#   kubectl apply -f examples/flux/gitrepository.yaml
+#
+# Prerequisites:
+#   flux bootstrap must have already been run on the cluster.
+#   See https://fluxcd.io/flux/installation/
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: n8n-kustomize
+  # Flux resources live in the flux-system namespace by default.
+  namespace: flux-system
+spec:
+  interval: 10m
+  url: https://github.com/turbo5000c/n8n-kustomize
+  ref:
+    # Pin to a specific branch or tag for production stability.
+    branch: main

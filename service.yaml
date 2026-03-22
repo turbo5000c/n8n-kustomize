@@ -6,9 +6,12 @@ metadata:
   name: n8n
   namespace: n8n
 spec:
+  # ClusterIP exposes n8n only inside the cluster.
+  # To reach the UI from a browser, use kubectl port-forward, an Ingress,
+  # or change type to LoadBalancer / NodePort.
   type: ClusterIP
   ports:
-    - name: "5678"
+    - name: http
       port: 5678
       targetPort: 5678
       protocol: TCP
