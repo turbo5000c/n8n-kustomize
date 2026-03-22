@@ -7,7 +7,11 @@ metadata:
   namespace: n8n
 spec:
   accessModes:
+    # ReadWriteOnce is required when a single pod mounts the volume.
+    # Change to ReadWriteMany only if your storage class supports it and
+    # you intend to run multiple replicas.
     - ReadWriteOnce
   resources:
     requests:
+      # Adjust the size to fit your workflow data and credential storage needs.
       storage: 2Gi

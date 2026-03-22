@@ -1,11 +1,21 @@
+---
+# Template — DO NOT commit real credentials.
+# Replace every <PLACEHOLDER> value before applying, or manage this secret
+# with an external secret manager (Sealed Secrets, SOPS, External Secrets, etc.).
 apiVersion: v1
 kind: Secret
 metadata:
-  namespace: n8n
   name: postgres-secret
+  namespace: n8n
 type: Opaque
 stringData:
-  POSTGRES_DB: n8n
-  POSTGRES_NON_ROOT_USER: user
-  POSTGRES_NON_ROOT_PASSWORD: password
-  POSTGRES_HOST: postgre.example.local
+  # Hostname or IP of your PostgreSQL instance.
+  # If PostgreSQL runs in the same cluster, use the Kubernetes Service DNS name,
+  # e.g. "postgres.database.svc.cluster.local".
+  POSTGRES_HOST: "<your-postgres-host>"
+  # Name of the n8n database on your PostgreSQL server.
+  POSTGRES_DB: "n8n"
+  # Non-root user that n8n uses to connect to the database.
+  POSTGRES_NON_ROOT_USER: "<your-db-user>"
+  # Password for the non-root database user.
+  POSTGRES_NON_ROOT_PASSWORD: "<your-db-password>"

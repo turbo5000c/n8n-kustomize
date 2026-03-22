@@ -1,0 +1,35 @@
+---
+# FluxCD Kustomization — tells Flux which path in the GitRepository to apply.
+# Apply this to your cluster AFTER the GitRepository is ready:
+#   kubectl apply -f examples/flux/kustomization.yaml
+#
+# Before applying, ensure the required secrets exist in the n8n namespace:
+#   - postgres-secret  (see n8n-postgresql.yaml for the expected keys)
+#   - n8n-secret       (see n8n-secret.yaml for the expected keys)
+#
+# We recommend managing those secrets outside of Git with a tool such as:
+#   - Sealed Secrets  https://github.com/bitnami-labs/sealed-secrets
+#   - SOPS            https://github.com/mozilla/sops
+#   - External Secrets Operator  https://external-secrets.io
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: n8n
+  namespace: flux-system
+spec:
+  interval: 10m
+  # Path inside the GitRepository where kustomization.yaml lives.
+  path: "./"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: n8n-kustomize
+  # Flux will wait for all deployed resources to become healthy before
+  # marking the Kustomization as ready.
+  healthChecks:
+    - apiVersion: apps/v1
+      kind: Deployment
+      name: n8n
+      namespace: n8n
+  # How long Flux waits for health checks before timing out.
+  timeout: 5m

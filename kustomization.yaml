@@ -1,10 +1,16 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
-namespace: mealie
 kind: Kustomization
+
+# All resources will be deployed into the n8n namespace.
+namespace: n8n
+
 resources:
-#  - namespace.yaml
+  - namespace.yaml
   - deployment.yaml
   - pvc.yaml
   - service.yaml
-#  - n8n-secret.yaml
-#  - n8n-postgresql.yaml
+  # Secret manifests are provided as templates.
+  # Populate them with real values (or use a secret manager such as
+  # Sealed Secrets / SOPS) and uncomment the lines below before applying.
+  # - n8n-secret.yaml
+  # - n8n-postgresql.yaml
